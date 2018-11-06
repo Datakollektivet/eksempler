@@ -423,8 +423,8 @@ site context (href), visualisation type, user agent and a time stamp.
                         <div>${days[_today.getDay()]}, ${_today.getDate()}  ${months[_today.getMonth()]}</div>
                         <div class="legend">Indkommende<div style="background:${_colors.in};"></div></div>
                         <div class="legend">Udgående<div style="background:${_colors.out};"></div></div>
-                        <div class="legend">Besøgende i huset<div class="line dashed" style="border-color:${_colors.visitors};"></div></div>
-                        <div class="legend">Publikum i huset<div class="line" style="background:${_colors.guests};"></div></div>
+                        <div class="legend">Besøgende <div class="line dashed" style="border-color:${_colors.visitors};"></div></div>
+                        <div class="legend">Besøgende i åbningstid<div class="line" style="background:${_colors.guests};"></div></div>
                         <div class="legend">Åbningstid<div style="background:${_colors.open};"></div></div>
                         `
         _shadow.appendChild(legend)
