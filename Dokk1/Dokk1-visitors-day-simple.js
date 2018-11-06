@@ -432,6 +432,7 @@ site context (href), visualisation type, user agent and a time stamp.
         var links = document.createElement("div")
         links.innerHTML = `<a href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
                     <a href="https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927&sort=_id%20desc&limit=168&offset=${_dataOffset}">Data</a>
+                    <a href="">Kode</a>
                     <a>Forbehold</a>
                     <a>Process</a><a href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
 
