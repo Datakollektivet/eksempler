@@ -6,7 +6,7 @@ Eksempler på åben data visualiseringer der frit kan bruges
 ### Visualisering af besøgende baseret på tællekamera
 Denne visualisering er baseret på de tælle-kameraer der er installere på Dokk1 i Aarhus. Visualiseringen bliver genereret dynamisk baseret på de seneste historiske data (er et par dage forsinket ift dags dato). Se information om brug nedenfor.
 
-`<script src="https://cdn.jsdelivr.net/gh/Datakollektivet/eksempler/Dokk1-visitors-day-simple.js" type="application/javascript"></script>`
+`<script src="https://cdn.jsdelivr.net/gh/Datakollektivet/eksempler/Dokk1/Dokk1-visitors-day-simple.min.js" type="application/javascript"></script>`
 
 ## Principper og brug
 
@@ -14,7 +14,7 @@ Alle eksemplerne på denne side kan frit bruges som de er ved at inkludere JavaS
 
 ```
 <div id="visualiserings-kontainer" style="width:1000px;">
-  <script src="dokk1-visitor-flow.js" type="application/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Datakollektivet/eksempler/Dokk1/Dokk1-visitors-day-simple.min.js" type="application/javascript"></script>
 </div>
 ```
 
