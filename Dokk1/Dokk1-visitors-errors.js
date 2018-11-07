@@ -43,23 +43,32 @@ site context (href), visualisation type, user agent and a time stamp.
 
     var _name = "dokk1-flow-simple"
     var _position = window.location.href
-    var _container, _shadow;
-    
+    var _container, _shadow, _records;
+
 
     document.scripts[document.scripts.length - 1];
     _container = document.scripts[document.scripts.length - 1].parentNode;
 
     if (!_container) {
         error("Unable to draw visualisation without a container")
-    } else if (document.characterSet !== "UTF-8"){
+    } else if (document.characterSet !== "UTF-8") {
         error("Wrong page encoding. The page you are trying to insert this visualisation on is not encoded with UTF-8, but uses " + document.characterSet + ".")
     } else {
         _shadow = _container.attachShadow({ mode: 'closed' })
         getData()
     }
 
-    function done(){
-        
+    function error(err) {
+        //do something more
+        var el = document.createElement("div")
+        el.innerHTML = err
+        console.log(err)
+        return
+    }
+
+    function done() {
+        console.log(_records)
+        console.log("done")
     }
 
     /**
@@ -68,21 +77,23 @@ site context (href), visualisation type, user agent and a time stamp.
      * function when the data is returned.
      */
 
+
+
     function getData() {
-        var u = 'https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927'
-        var xhr = new XMLHttpRequest();
+
+        var u = 'https://henrikkorsgaard.dk/data/5c458800-6926-456f-8629-158f0bf86927.json'
+
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', u);
         xhr.send(null);
 
         xhr.addEventListener("load", function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var data = JSON.parse(xhr.response)
-                if (data.result.records && data.result.records.length > 0) {
-                    _records = data.result.records;
-                    done()
-                } else {
-                    err("Error loading data")
-                }
+                
+                _records = data.records
+                done()
+                
             } else {
                 err("Error loading data")
             }
@@ -95,5 +106,6 @@ site context (href), visualisation type, user agent and a time stamp.
         xhr.addEventListener("abort", function (err) {
             error(err)
         })
+
     }
 })();

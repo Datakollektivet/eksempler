@@ -352,6 +352,10 @@ site context (href), visualisation type, user agent and a time stamp.
         var style = document.createElement("style")
         style.innerHTML = `
 
+        :host {
+            position:relative;
+        }
+
         #legend {
             position: absolute;
             top: 50px;
