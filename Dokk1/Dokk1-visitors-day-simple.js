@@ -42,7 +42,7 @@ site context (href), visualisation type, user agent and a time stamp.
 
     var _name = "dokk1-flow-simple"
     var _position = window.location.href
-    var _container, _shadow, _records, _today, _opens, _closes, _dataOffset;
+    var _container, _shadow, _records, _today, _opens, _closes, _dataOffset, _body;
     var _colors = {
         open: "#e0ecf4",
         in: "#fe9929",
@@ -217,7 +217,7 @@ site context (href), visualisation type, user agent and a time stamp.
             .domain([Math.floor(yMin / 100) * 100, Math.ceil(yMax / 100) * 100])
             .rangeRound([dims.height - dims.marginH, 0])
 
-        var svg = d3.select(_shadow).append("svg")
+        var svg = d3.select(_body).append("svg")
             .attr("viewBox", `0 0 ${dims.width + dims.marginW} ${dims.height + dims.marginH}`)
             .append("g")
             .attr("transform", "translate(" + dims.marginW + "," + dims.marginH + ")");
@@ -350,9 +350,12 @@ site context (href), visualisation type, user agent and a time stamp.
         var months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"];
         var svgWidth = _shadow.querySelector("svg").getBoundingClientRect().width
         var style = document.createElement("style")
+        _body = document.createElement("div")
+        _body.id = "shadowbody"
+        _shadow.appendChild(body)
         style.innerHTML = `
 
-        :host {
+        #shadowbody {
             position:relative;
         }
 
@@ -431,7 +434,7 @@ site context (href), visualisation type, user agent and a time stamp.
                         <div class="legend">Besøgende i åbningstid<div class="line" style="background:${_colors.guests};"></div></div>
                         <div class="legend">Åbningstid<div style="background:${_colors.open};"></div></div>
                         `
-        _shadow.appendChild(legend)
+        _body.appendChild(legend)
 
         var links = document.createElement("div")
         links.innerHTML = `<a href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
@@ -440,7 +443,7 @@ site context (href), visualisation type, user agent and a time stamp.
                     <a>Forbehold</a>
                     <a>Process</a><a href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
 
-        _shadow.appendChild(links)
+        _body.appendChild(links)
     }
 
 })()
