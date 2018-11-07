@@ -414,7 +414,7 @@ site context (href), visualisation type, user agent and a time stamp.
 
         a:last-child {
             position:absolute;
-            left:${svgWidth-130}px;
+            left:${svgWidth-150}px;
         }
 
         a:active,  a:hover,  a:visited {
