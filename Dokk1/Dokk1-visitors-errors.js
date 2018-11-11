@@ -89,11 +89,10 @@ site context (href), visualisation type, user agent and a time stamp.
 
         xhr.addEventListener("load", function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr)
                 var data = JSON.parse(xhr.response)
-                
                 _records = data.records
                 done()
-                
             } else {
                 err("Error loading data")
             }

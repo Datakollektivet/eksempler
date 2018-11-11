@@ -41,8 +41,9 @@ site context (href), visualisation type, user agent and a time stamp.
 ; (function () {
 
     var _name = "dokk1-flow-simple"
+    var _namespace = "dk-"+_name;
     var _position = window.location.href
-    var _container, _shadow, _records, _today, _opens, _closes, _dataOffset;
+    var _container, _body, _records, _today, _opens, _closes, _dataOffset;
     var _colors = {
         open: "#e0ecf4",
         in: "#fe9929",
@@ -59,7 +60,10 @@ site context (href), visualisation type, user agent and a time stamp.
     } else if (document.characterSet !== "UTF-8"){
         error("Wrong page encoding. The page you are trying to insert this visualisation on is not encoded with UTF-8, but uses " + document.characterSet + ".")
     } else {
-        _shadow = _container.attachShadow({ mode: 'closed' })
+        _body = document.createElement("div")
+        _body.id = _namespace
+        _body.classList = _namespace
+        _container.appendChild(_body)
         getData()
         loadScripts();
     }
@@ -141,11 +145,9 @@ site context (href), visualisation type, user agent and a time stamp.
 
             script.onreadystatechange = script.onload = function(){
                 done()
-                
-                
             }
 
-            _shadow.appendChild(script);
+            _body.appendChild(script);
         })
         
     }
@@ -195,7 +197,7 @@ site context (href), visualisation type, user agent and a time stamp.
     function draw(data) {
 
         var dims = {
-            width: _container.getBoundingClientRect().width,
+            width: _container.getBoundingClientRect().width-40,
             height: Math.ceil(_container.getBoundingClientRect().width * 0.4),
             marginW: 40,
             marginH: 30
@@ -217,7 +219,8 @@ site context (href), visualisation type, user agent and a time stamp.
             .domain([Math.floor(yMin / 100) * 100, Math.ceil(yMax / 100) * 100])
             .rangeRound([dims.height - dims.marginH, 0])
 
-        var svg = d3.select(_shadow).append("svg")
+        var svg = d3.select(_body).append("svg")
+            .attr("class", _namespace)
             .attr("viewBox", `0 0 ${dims.width + dims.marginW} ${dims.height + dims.marginH}`)
             .append("g")
             .attr("transform", "translate(" + dims.marginW + "," + dims.marginH + ")");
@@ -348,13 +351,18 @@ site context (href), visualisation type, user agent and a time stamp.
     function addHTML() {
         var days = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
         var months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"];
-        var svgWidth = _shadow.querySelector("svg").getBoundingClientRect().width
+        var svgWidth = _body.querySelector("svg").getBoundingClientRect().width
         var style = document.createElement("style")
+        style.classList = _namespace
         style.innerHTML = `
 
-        :host { all: initial }
+        .#${_namespace} { all: initial }
 
-        #legend {
+        #${_namespace} {
+            position:relative;
+        }
+
+        .${_namespace} #legend {
             position: absolute;
             top: 50px;
             left: 60px;
@@ -364,19 +372,19 @@ site context (href), visualisation type, user agent and a time stamp.
             font-family:verdana;
         }
 
-        #legend div:first-child {
+        .${_namespace} #legend div:first-child {
             text-align: center;
             font-size: 70%;
             margin: 5px;
         }
 
-        .legend {
+        .${_namespace}.legend {
             margin: 2px;
             margin-left: 10px;
             font-size: 80%
         }
 
-        .legend div {
+        .${_namespace}.legend div {
             position: absolute;
             right: 2px;
             margin-top: 2px;
@@ -385,60 +393,61 @@ site context (href), visualisation type, user agent and a time stamp.
             height: 14px;
         }
 
-        .legend div.line {
+        .${_namespace}.legend div.line {
             margin-top: 2px;
             height: 2px;
         }
 
-        .legend div.line.dashed {
+        .${_namespace}.legend div.line.dashed {
             background:none;
             height:5px;
             border-bottom:2px dashed;
         }
 
-        a {
+        .${_namespace} a {
             display:inline-block;
             color:black;
             font-size: 80%;
             margin:0px 10px;
         }
        
-        a:first-child {
+        .${_namespace} a:first-child {
             margin-left:40px;
         }
 
-        a:last-child {
+        .${_namespace} a:last-child {
             position:absolute;
             left:${svgWidth-150}px;
         }
 
-        a:active,  a:hover,  a:visited {
+        .${_namespace} a:active,  .${_namespace} a:hover,  .${_namespace} a:visited {
             text-decoration: none;
         }
         `
 
-        _shadow.appendChild(style)
+        _body.appendChild(style)
 
         var legend =  document.createElement("div")
         legend.id = "legend"
+        legend.classList = _namespace
         legend.innerHTML = `Besøgsmønstre på Dokk1
                         <div>${days[_today.getDay()]}, ${_today.getDate()}  ${months[_today.getMonth()]}</div>
-                        <div class="legend">Indkommende<div style="background:${_colors.in};"></div></div>
-                        <div class="legend">Udgående<div style="background:${_colors.out};"></div></div>
-                        <div class="legend">Besøgende hele dagen <div class="line dashed" style="border-color:${_colors.visitors};"></div></div>
-                        <div class="legend">Besøgende i åbningstid<div class="line" style="background:${_colors.guests};"></div></div>
-                        <div class="legend">Åbningstid<div style="background:${_colors.open};"></div></div>
+                        <div class="legend ${_namespace}">Indkommende<div class="${_namespace}" style="background:${_colors.in};"></div></div>
+                        <div class="legend ${_namespace}">Udgående<div class="${_namespace}" style="background:${_colors.out};"></div></div>
+                        <div class="legend ${_namespace}">Besøgende hele dagen <div class="line dashed ${_namespace}" style="border-color:${_colors.visitors};"></div></div>
+                        <div class="legend ${_namespace}">Besøgende i åbningstid<div class="line ${_namespace}" style="background:${_colors.guests};"></div></div>
+                        <div class="legend ${_namespace}">Åbningstid<div class="${_namespace}" style="background:${_colors.open};"></div></div>
                         `
-        _shadow.appendChild(legend)
+        _body.appendChild(legend)
 
         var links = document.createElement("div")
-        links.innerHTML = `<a href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
-                    <a href="https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927&sort=_id%20desc&limit=168&offset=${_dataOffset}">Data</a>
-                    <a href="https://github.com/Datakollektivet/eksempler/blob/master/Dokk1/Dokk1-visitors-day-simple.js">Kode</a>
-                    <a>Forbehold</a>
-                    <a>Process</a><a href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
+        links.innerHTML = `<a class="${_namespace}" href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
+                    <a class="${_namespace}" href="https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927&sort=_id%20desc&limit=168&offset=${_dataOffset}">Data</a>
+                    <a class="${_namespace}"href="https://github.com/Datakollektivet/eksempler/blob/master/Dokk1/Dokk1-visitors-day-simple.js">Kode</a>
+                    <a class="${_namespace}">Forbehold</a>
+                    <a class="${_namespace}">Process</a><a class="${_namespace}" href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
 
-        _shadow.appendChild(links)
+        _body.appendChild(links)
     }
 
 })()
