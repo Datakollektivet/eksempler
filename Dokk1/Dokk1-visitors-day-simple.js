@@ -45,7 +45,7 @@ site context (href), visualisation type, user agent and a time stamp.
     var _position = window.location.href
     var _container, _body, _records, _today, _opens, _closes, _dataOffset;
     var _colors = {
-        open: "#88ccee",
+        open: "#66ccee",
         in: "#fe9929",
         out: "#fc4e2a",
         visitors: "#01665e",
@@ -417,7 +417,7 @@ site context (href), visualisation type, user agent and a time stamp.
 
         .${_namespace} a:last-child {
             position:absolute;
-            left:${svgWidth-200}px;
+            left:${svgWidth-190}px;
         }
 
         .${_namespace} a:active,  .${_namespace} a:hover,  .${_namespace} a:visited {
