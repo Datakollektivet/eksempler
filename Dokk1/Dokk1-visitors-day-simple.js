@@ -45,7 +45,7 @@ site context (href), visualisation type, user agent and a time stamp.
     var _position = window.location.href
     var _container, _body, _records, _today, _opens, _closes, _dataOffset;
     var _colors = {
-        open: "#e0ecf4",
+        open: "#88ccee",
         in: "#fe9929",
         out: "#fc4e2a",
         visitors: "#01665e",
@@ -153,7 +153,7 @@ site context (href), visualisation type, user agent and a time stamp.
     }
 
     function wrangle() {
-        var openingHours = [{ o: 10, c: 16 }, { o: 08, c: 21 }, { o: 08, c: 21 }, { o: 08, c: 21 }, { o: 08, c: 21 }, { o: 08, c: 21 }, { o: 10, c: 16 }]
+        var openingHours = [{ o: 10, c: 16 }, { o: 8, c: 21 }, { o: 8, c: 21 }, { o: 8, c: 21 }, { o: 8, c: 21 }, { o: 8, c: 21 }, { o: 10, c: 16 }]
 
         for (var i = 0, n = _records.length - 168; i < n; i++) {
             var r = _records[i]
@@ -417,7 +417,7 @@ site context (href), visualisation type, user agent and a time stamp.
 
         .${_namespace} a:last-child {
             position:absolute;
-            left:${svgWidth-150}px;
+            left:${svgWidth-200}px;
         }
 
         .${_namespace} a:active,  .${_namespace} a:hover,  .${_namespace} a:visited {
