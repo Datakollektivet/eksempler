@@ -417,7 +417,8 @@ site context (href), visualisation type, user agent and a time stamp.
 
         .${_namespace} a:last-child {
             position:absolute;
-            left:${svgWidth-190}px;
+            margin-right:0px;
+            left:${svgWidth-200}px;
         }
 
         .${_namespace} a:active,  .${_namespace} a:hover,  .${_namespace} a:visited {
