@@ -443,9 +443,8 @@ site context (href), visualisation type, user agent and a time stamp.
         var links = document.createElement("div")
         links.innerHTML = `<a class="${_namespace}" href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
                     <a class="${_namespace}" href="https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927&sort=_id%20desc&limit=168&offset=${_dataOffset}">Data</a>
-                    <a class="${_namespace}"href="https://github.com/Datakollektivet/eksempler/blob/master/Dokk1/Dokk1-visitors-day-simple.js">Kode</a>
-                    <a class="${_namespace}">Forbehold</a>
-                    <a class="${_namespace}">Process</a><a class="${_namespace}" href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
+                    <a class="${_namespace}" href="https://github.com/Datakollektivet/eksempler/blob/master/Dokk1/Dokk1-visitors-day-simple.js">Kode</a>
+                    <a class="${_namespace}" href="https://datakollektivet.dk">Datakollektivet.dk 2018</a>`
 
         _body.appendChild(links)
     }
