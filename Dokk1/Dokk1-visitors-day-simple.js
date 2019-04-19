@@ -352,6 +352,7 @@ site context (href), visualisation type, user agent and a time stamp.
         var days = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
         var months = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"];
         var svgWidth = _body.querySelector("svg").getBoundingClientRect().width
+      
         var style = document.createElement("style")
         style.classList = _namespace
         style.innerHTML = `
@@ -362,35 +363,37 @@ site context (href), visualisation type, user agent and a time stamp.
             position:relative;
         }
 
-        .${_namespace} #legend {
-            position: absolute;
-            top: 50px;
-            left: 60px;
-            padding: 10px;
-            background: white;
-            border: 1px solid black;
-            font-family:verdana;
+        .${_namespace} h5 {
+            margin:0px 0px -20px 15px;
+            padding:0px;
+            font-family: verdana, sans-serif;
         }
 
-        .${_namespace} #legend div:first-child {
-            text-align: center;
-            font-size: 70%;
-            margin: 5px;
+        .${_namespace} #legend {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            padding: 10px;
+            width:140px;
+            background: white;
+            font-size:80%;
+            border: 1px solid black;
+            font-family:verdana;
+            
         }
 
         .${_namespace}.legend {
             margin: 2px;
-            margin-left: 10px;
             font-size: 80%
         }
 
         .${_namespace}.legend div {
             position: absolute;
-            right: 2px;
-            margin-top: 2px;
+            right: 10px;
+            margin-top: 0px;
             display: inline-block;
             width: 32px;
-            height: 14px;
+            height: 12px;
         }
 
         .${_namespace}.legend div.line {
@@ -404,10 +407,16 @@ site context (href), visualisation type, user agent and a time stamp.
             border-bottom:2px dashed;
         }
 
+        .${_namespace}#links {
+            width:100%;
+        }
+
         .${_namespace} a {
+            position:relative;
             display:inline-block;
             color:black;
-            font-size: 80%;
+            font-size: 70%;
+            top:-10px;
             margin:0px 10px;
         }
        
@@ -416,9 +425,7 @@ site context (href), visualisation type, user agent and a time stamp.
         }
 
         .${_namespace} a:last-child {
-            position:absolute;
-            margin-right:0px;
-            left:${svgWidth-200}px;
+            float:right;
         }
 
         .${_namespace} a:active,  .${_namespace} a:hover,  .${_namespace} a:visited {
@@ -426,22 +433,29 @@ site context (href), visualisation type, user agent and a time stamp.
         }
         `
 
-        _body.appendChild(style)
+        _body.prepend(style)
+
+        var header = document.createElement("h5")
+        header.id = "title"
+        header.classList = _namespace
+        header.innerHTML = `Besøgende på Dokk1: ${days[_today.getDay()]}, ${_today.getDate()}  ${months[_today.getMonth()]} ${_today.getFullYear()}`
+
+        _body.insertBefore(header, _body.querySelector("svg"))
 
         var legend =  document.createElement("div")
         legend.id = "legend"
         legend.classList = _namespace
-        legend.innerHTML = `Besøgsmønstre på Dokk1
-                        <div>${days[_today.getDay()]}, ${_today.getDate()}  ${months[_today.getMonth()]}</div>
-                        <div class="legend ${_namespace}">Indkommende<div class="${_namespace}" style="background:${_colors.in};"></div></div>
+        legend.innerHTML = `<div class="legend ${_namespace}">Indkommende<div class="${_namespace}" style="background:${_colors.in};"></div></div>
                         <div class="legend ${_namespace}">Udgående<div class="${_namespace}" style="background:${_colors.out};"></div></div>
-                        <div class="legend ${_namespace}">Besøgende hele dagen <div class="line dashed ${_namespace}" style="border-color:${_colors.visitors};"></div></div>
-                        <div class="legend ${_namespace}">Besøgende i åbningstid<div class="line ${_namespace}" style="background:${_colors.guests};"></div></div>
+                        <div class="legend ${_namespace}">Hele dagen <div class="line dashed ${_namespace}" style="border-color:${_colors.visitors};"></div></div>
+                        <div class="legend ${_namespace}">I åbningstiden<div class="line ${_namespace}" style="background:${_colors.guests};"></div></div>
                         <div class="legend ${_namespace}">Åbningstid<div class="${_namespace}" style="background:${_colors.open};"></div></div>
                         `
         _body.appendChild(legend)
 
         var links = document.createElement("div")
+        links.id = "links"
+        links.classList = _namespace
         links.innerHTML = `<a class="${_namespace}" href="https://portal.opendata.dk/dataset/taellekamera-pa-dokk1">Kilde</a>
                     <a class="${_namespace}" href="https://portal.opendata.dk/api/3/action/datastore_search?resource_id=5c458799-6926-456f-8629-158f0bf86927&sort=_id%20desc&limit=168&offset=${_dataOffset}">Data</a>
                     <a class="${_namespace}" href="https://github.com/Datakollektivet/eksempler/blob/master/Dokk1/Dokk1-visitors-day-simple.js">Kode</a>
